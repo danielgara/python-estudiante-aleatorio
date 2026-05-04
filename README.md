@@ -34,6 +34,7 @@ pip install -r requirements.txt
 
 ```txt
 screeninfo==0.8.1
+customtkinter==5.1.3
 ```
 
 ---
