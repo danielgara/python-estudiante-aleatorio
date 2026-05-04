@@ -9,7 +9,24 @@ estudiantes = [
     "MARIA SUAREZ",
     "CAMILO ARTEAGA",
     "ALEJANDRO ROMERO",
+    "JOSE DAVID ARTEAGA",
+    "JUAN DAVID ARTEAGA",
+    "DANIEL MARIN",
 ]
+
+offset_x = 0
+offset_y = 0
+
+
+def iniciar_arrastre(event):
+    global offset_x, offset_y
+    offset_x = event.x
+    offset_y = event.y
+
+def mover_ventana(event):
+    x = root.winfo_pointerx() - offset_x
+    y = root.winfo_pointery() - offset_y
+    root.geometry(f"+{x}+{y}")
 
 def elegir():
     label.configure(text=random.choice(estudiantes))
@@ -34,6 +51,8 @@ def posicionar_ventana(root, ancho=300, alto=140):
 root = ctk.CTk()
 root.overrideredirect(True)
 root.attributes("-topmost", True)
+root.bind("<Button-1>", iniciar_arrastre)
+root.bind("<B1-Motion>", mover_ventana)
 
 # 🔹 Contenedor principal (con bordes redondeados visuales)
 frame = ctk.CTkFrame(root, corner_radius=15)
