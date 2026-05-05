@@ -5,14 +5,12 @@ from screeninfo import get_monitors
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
 
-estudiantes = [
-    "MARIA SUAREZ",
-    "CAMILO ARTEAGA",
-    "ALEJANDRO ROMERO",
-    "JOSE DAVID ARTEAGA",
-    "JUAN DAVID ARTEAGA",
-    "DANIEL MARIN",
-]
+def cargar_estudiantes(ruta):
+    with open(ruta, "r", encoding="utf-8") as archivo:
+        return [linea.strip() for linea in archivo if linea.strip()]
+
+# Cargar estudiantes desde archivo
+estudiantes = cargar_estudiantes("estudiantes.txt")
 
 offset_x = 0
 offset_y = 0
