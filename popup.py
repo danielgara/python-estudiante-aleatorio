@@ -1,6 +1,7 @@
 import customtkinter as ctk
 import random
 from screeninfo import get_monitors
+from tkinter import filedialog
 
 ctk.set_appearance_mode("dark")
 ctk.set_default_color_theme("blue")
@@ -15,6 +16,16 @@ estudiantes = cargar_estudiantes("estudiantes.txt")
 offset_x = 0
 offset_y = 0
 collapsed = False  # 👈 estado
+
+def seleccionar_archivo():
+    global estudiantes
+    ruta = filedialog.askopenfilename(
+        title="Seleccionar archivo de estudiantes",
+        filetypes=[("Archivos de texto", "*.txt")]
+    )
+    if ruta:
+        estudiantes = cargar_estudiantes(ruta)
+        label.configure(text="Lista cargada ✔")
 
 def iniciar_arrastre(event):
     global offset_x, offset_y
@@ -45,12 +56,12 @@ def toggle_view():
         collapsed = True
     else:
         frame.pack(fill="both", expand=True, padx=5, pady=5)
-        root.geometry("300x140")
+        root.geometry("380x140")
         toggle_btn.place_forget()
         collapsed = False
 
 
-def posicionar_ventana(root, ancho=300, alto=140):
+def posicionar_ventana(root, ancho=380, alto=140):
     monitores = get_monitors()
     monitor = monitores[1] if len(monitores) > 1 else monitores[0]
     x = monitor.x + 20
@@ -75,6 +86,9 @@ btn_elegir.pack(side="left", padx=5)
 
 btn_limpiar = ctk.CTkButton(header, text="Limpiar", command=limpiar, width=80, fg_color="#444")
 btn_limpiar.pack(side="left", padx=5)
+
+btn_cargar = ctk.CTkButton(header, text="Cargar", command=seleccionar_archivo, width=80)
+btn_cargar.pack(side="left", padx=5)
 
 btn_cerrar = ctk.CTkButton(header, text="✖", command=cerrar, width=40, fg_color="#d32f2f", hover_color="#b71c1c")
 btn_cerrar.pack(side="right", padx=5)
